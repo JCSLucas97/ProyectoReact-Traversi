@@ -8,7 +8,7 @@ import CartWidgetContainer from "../../common/cartWidget/CartWidgetContainer";
 import HamburguerMenu from "../../common/menu/HamburguerMenu";
 // import SearchElementContainer from "../../common/search/SearchElementContainer";
 
-export default function Navbar(mobileMenuId, handleMobileMenuOpen) {
+export default function Navbar({ mobileMenuId, handleMobileMenuOpen, number }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -24,7 +24,7 @@ export default function Navbar(mobileMenuId, handleMobileMenuOpen) {
           </Typography>
           {/* <SearchElementContainer /> */}
           <Box sx={{ flexGrow: 1 }} />
-          <CartWidgetContainer />
+          <CartWidgetContainer number={number} />
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"

@@ -8,7 +8,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import Navbar from "./navbar";
 
-export default function NavbarContainer() {
+export default function NavbarContainer({ number }) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -40,7 +40,7 @@ export default function NavbarContainer() {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={1} color="error">
+          <Badge badgeContent={number} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -63,6 +63,7 @@ export default function NavbarContainer() {
 
   return (
     <Navbar
+      number={number}
       handleMobileMenuOpen={handleMobileMenuOpen}
       renderMobileMenu={renderMobileMenu}
       mobileMenuId={mobileMenuId}

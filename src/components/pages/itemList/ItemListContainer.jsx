@@ -1,6 +1,5 @@
-// import { useState } from "react";
 import ItemList from "./ItemList";
 
-export default function ItemListContainer() {
-  return <ItemList />;
+export default function ItemListContainer({ addProduct }) {
+  return <ItemList addProduct={addProduct} />;
 }
