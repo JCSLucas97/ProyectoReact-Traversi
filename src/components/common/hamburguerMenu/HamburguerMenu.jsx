@@ -2,7 +2,7 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 export default function HamburguerMenu() {
@@ -24,15 +24,21 @@ export default function HamburguerMenu() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <IconButton
+        {/* <IconButton
           size="large"
           edge="start"
           color="secondary"
           aria-label="open drawer"
           sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
+        > */}
+        <MenuIcon
+          size="large"
+          edge="start"
+          color="color2"
+          aria-label="open drawer"
+          sx={{ mr: 2 }}
+        />
+        {/* </IconButton> */}
       </Button>
       <Menu
         id="basic-menu"

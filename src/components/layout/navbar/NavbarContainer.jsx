@@ -1,5 +1,4 @@
-import * as React from "react";
-
+import { useEffect, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -7,9 +6,20 @@ import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import Navbar from "./navbar";
+import { categories } from "../../../productsMock";
 
-export default function NavbarContainer({ number }) {
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+export default function NavbarContainer({ number, setAmount }) {
+  const [categoryItems, setcategoryItems] = useState([]);
+
+  useEffect(() => {
+    const tarea = new Promise((resolve, reject) => {
+      resolve(categories);
+    });
+    tarea
+      .then((respuesta) => setcategoryItems(respuesta))
+      .catch((error) => console.log(error));
+  }, []);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -40,7 +50,7 @@ export default function NavbarContainer({ number }) {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={number} color="error">
+          <Badge badgeContent={setAmount} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -67,6 +77,7 @@ export default function NavbarContainer({ number }) {
       handleMobileMenuOpen={handleMobileMenuOpen}
       renderMobileMenu={renderMobileMenu}
       mobileMenuId={mobileMenuId}
+      categoryItems={categoryItems}
     />
   );
 }

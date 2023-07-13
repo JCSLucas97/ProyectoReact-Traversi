@@ -5,40 +5,72 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import CartWidgetContainer from "../../common/cartWidget/CartWidgetContainer";
-import HamburguerMenu from "../../common/menu/HamburguerMenu";
+// import HamburguerMenu from "../../common/hamburguerMenu/HamburguerMenu";
+import { Link, Outlet } from "react-router-dom";
+import { Button } from "@mui/material";
 // import SearchElementContainer from "../../common/search/SearchElementContainer";
 
-export default function Navbar({ mobileMenuId, handleMobileMenuOpen, number }) {
+export default function Navbar({
+  mobileMenuId,
+  handleMobileMenuOpen,
+  number,
+  categoryItems,
+}) {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <HamburguerMenu />
-          <Typography
-            variant="h4"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            CleanyKick
-          </Typography>
-          {/* <SearchElementContainer /> */}
-          <Box sx={{ flexGrow: 1 }} />
-          <CartWidgetContainer number={number} />
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
+    <div>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            {/* <HamburguerMenu /> */}
+            <Typography
+              variant="h3"
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" } }}
             >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-    </Box>
+              CleanyKick
+            </Typography>
+            {/* <SearchElementContainer /> */}
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                justifyContent: "space-evenly",
+                color: "secondary",
+              }}
+            >
+              <Link to={"/"}>
+                <Button variant="contained" color="secondary" size="large">
+                  TODAS
+                </Button>
+              </Link>
+              {categoryItems.map((category) => {
+                return (
+                  <Link to={`/category/${category.id}`} key={category.id}>
+                    <Button variant="contained" color="secondary" size="large">
+                      {category.name}
+                    </Button>
+                  </Link>
+                );
+              })}
+            </Box>
+            <CartWidgetContainer number={number} />
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="color1"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <Outlet />
+    </div>
   );
 }
