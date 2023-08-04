@@ -15,12 +15,17 @@ export default function ProductCard({ item }) {
         maxWidth: 250,
         padding: "15px",
         backgroundColor: "#C3DBD9",
+        boxShadow: "0 2px 8px 3px rgb(10 5 5 / 50%)",
+        borderRadius: "10px",
       }}
     >
       <CardMedia
         component="img"
-        alt="green iguana"
+        alt="producto"
         height="220"
+        style={{
+          borderRadius: "10px",
+        }}
         image={item.img}
       />
       <CardContent>

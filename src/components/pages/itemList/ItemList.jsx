@@ -10,7 +10,7 @@ export default function ItemList({ items }) {
         justifyContent: "space-evenly",
         flexWrap: "wrap",
         padding: "50px",
-        gap: "9px",
+        gap: "27px 9px",
       }}
     >
       {items.map((item) => {
@@ -18,12 +18,4 @@ export default function ItemList({ items }) {
       })}
     </section>
   );
-}
-{
-  /* <Stack spacing={2} direction="row" className="items-margin">
-        <Button variant="contained">Pisos</Button>
-        <Button variant="contained">Ropa</Button>
-        <Button variant="contained">Madera</Button>
-        <Button variant="contained">Vidrios</Button>
-      </Stack> */
 }

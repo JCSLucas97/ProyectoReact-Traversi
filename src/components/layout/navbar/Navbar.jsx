@@ -5,10 +5,8 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import CartWidgetContainer from "../../common/cartWidget/CartWidgetContainer";
-// import HamburguerMenu from "../../common/hamburguerMenu/HamburguerMenu";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
-// import SearchElementContainer from "../../common/search/SearchElementContainer";
 
 export default function Navbar({
   mobileMenuId,
@@ -25,7 +23,7 @@ export default function Navbar({
             <Typography
               variant="h3"
               noWrap
-              component="div"
+              component="a"
               sx={{ display: { xs: "none", sm: "block" } }}
             >
               CleanyKick
@@ -70,7 +68,6 @@ export default function Navbar({
           </Toolbar>
         </AppBar>
       </Box>
-      <Outlet />
     </div>
   );
 }
