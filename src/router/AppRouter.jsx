@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import CartContextComponent from "../context/CartContext";
 import { routes } from "./menuRouter";
-import Layout from "../components/layout/layout";
+import Layout from "../components/layout/Layout";
 
 export default function AppRouter() {
   return (
