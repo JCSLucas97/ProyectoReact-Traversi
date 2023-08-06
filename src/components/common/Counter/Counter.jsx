@@ -1,7 +1,12 @@
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
-export default function Counter({ counter, setCounter, addToCart, stock }) {
+export default function Counter({
+  counter,
+  setCounter,
+  agregarAlCarrito,
+  stock,
+}) {
   return (
     <div>
       <h1>Contador</h1>
@@ -22,7 +27,7 @@ export default function Counter({ counter, setCounter, addToCart, stock }) {
           +
         </Button>
         <Button
-          onClick={() => addToCart(counter)}
+          onClick={() => agregarAlCarrito(counter)}
           variant="contained"
           color="secondary"
         >

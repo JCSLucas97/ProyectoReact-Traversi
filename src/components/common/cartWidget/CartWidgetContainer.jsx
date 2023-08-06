@@ -7,13 +7,15 @@ import { CartContext } from "../../../context/CartContext";
 import { Link } from "react-router-dom";
 
 export default function CartWidgetContainer() {
-  const { cart } = useContext(CartContext);
+  const { getTotalQuantity } = useContext(CartContext);
+
+  let total = getTotalQuantity();
 
   return (
     <Link to={"/cart"}>
       <Box sx={{ display: { xs: "none", md: "flex" } }}>
         <IconButton size="large" aria-label="show 4 new mails" color="info">
-          <Badge badgeContent={cart.length} color="error">
+          <Badge badgeContent={total} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>

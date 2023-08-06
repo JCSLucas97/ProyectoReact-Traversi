@@ -4,13 +4,16 @@ import ItemDetail from "./ItemDetail";
 import { products } from "../../../productsMock";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../../../context/CartContext";
+import Swal from "sweetalert2";
 
 export default function ItemDetailContainer() {
   const [product, setproduct] = useState({});
 
   let { id } = useParams();
 
-  const { agregarAlCarrito } = useContext(CartContext);
+  const { addToCart, getQuantityById } = useContext(CartContext);
+
+  let cantidadEnCarrito = getQuantityById(id);
 
   useEffect(() => {
     let promesa = new Promise((resolve, reject) => {
@@ -21,13 +24,20 @@ export default function ItemDetailContainer() {
     promesa.then((res) => setproduct(res)).catch((err) => console.log(err));
   }, [id]);
 
-  const addToCart = (amount) => {
+  const agregarAlCarrito = (amount) => {
     let data = {
       ...product,
       quantity: amount,
     };
-    agregarAlCarrito(data);
+    addToCart(data);
+    Swal.fire("Productos agregados con éxito!", "", "success");
     // console.log(data);
   };
-  return <ItemDetail addToCart={addToCart} product={product} />;
+  return (
+    <ItemDetail
+      agregarAlCarrito={agregarAlCarrito}
+      product={product}
+      cantidadEnCarrito={cantidadEnCarrito}
+    />
+  );
 }
