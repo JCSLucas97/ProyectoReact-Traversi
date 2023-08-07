@@ -1,13 +1,15 @@
 // import { useState } from "react";
 import { useContext, useEffect, useState } from "react";
 import ItemDetail from "./ItemDetail";
-import { products } from "../../../productsMock";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../../../context/CartContext";
 import Swal from "sweetalert2";
+import { db } from "../../../firebaseConfig";
+import { collection, doc, getDoc } from "firebase/firestore";
+import { CircularProgress } from "@mui/material";
 
 export default function ItemDetailContainer() {
-  const [product, setproduct] = useState({});
+  const [product, setProduct] = useState({});
 
   let { id } = useParams();
 
@@ -16,12 +18,9 @@ export default function ItemDetailContainer() {
   let cantidadEnCarrito = getQuantityById(id);
 
   useEffect(() => {
-    let promesa = new Promise((resolve, reject) => {
-      let productSelected = products.find((product) => product.id === +id);
-      resolve(productSelected);
-    });
-
-    promesa.then((res) => setproduct(res)).catch((err) => console.log(err));
+    let refCollection = collection(db, "products");
+    let refDoc = doc(refCollection, id);
+    getDoc(refDoc).then((res) => setProduct({ ...res.data(), id: res.id }));
   }, [id]);
 
   const agregarAlCarrito = (amount) => {
@@ -33,6 +32,7 @@ export default function ItemDetailContainer() {
     Swal.fire("Productos agregados con éxito!", "", "success");
     // console.log(data);
   };
+
   return (
     <ItemDetail
       agregarAlCarrito={agregarAlCarrito}

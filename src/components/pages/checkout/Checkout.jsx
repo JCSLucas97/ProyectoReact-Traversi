@@ -1,24 +1,37 @@
-export default function Checkout({ funcionDelFormulario, funcionDelInput }) {
+import { Button } from "@mui/material";
+
+export default function Checkout({ handleSubmit, handleChange, orderId }) {
   return (
     <div>
       <div>
         <h1>Checkout</h1>
-        <form onSubmit={funcionDelFormulario}>
-          <input
-            type="text"
-            placeholder="ingrese su nombre"
-            name="name"
-            onChange={funcionDelInput}
-          />
-          <input
-            type="text"
-            placeholder="ingrese su apellido"
-            name="lastName"
-            onChange={funcionDelInput}
-          />
-          <button type="submit">Enviar</button>
-          <button type="button">Cancelar</button>
-        </form>
+        {!orderId ? (
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Ingrese su nombre"
+              name="name"
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              placeholder="Ingrese su telefono"
+              name="phone"
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              placeholder="Ingrese su email"
+              name="email"
+              onChange={handleChange}
+            />
+            <Button type="submit" variant="contained">
+              Comprar
+            </Button>
+          </form>
+        ) : (
+          <h3>Su orden de compra es: {orderId}</h3>
+        )}
       </div>
     </div>
   );

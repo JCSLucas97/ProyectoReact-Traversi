@@ -6,19 +6,25 @@ import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import Navbar from "./navbar";
-import { categories } from "../../../productsMock";
+// import { categories } from "../../../productsMock";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebaseConfig";
 
 export default function NavbarContainer({ number, setAmount }) {
-  const [categoryItems, setcategoryItems] = useState([]);
+  const [categoryItems, setCategoryItems] = useState([]);
 
   useEffect(() => {
-    const tarea = new Promise((resolve, reject) => {
-      resolve(categories);
+    let ref = collection(db, "categories");
+
+    getDocs(ref).then((res) => {
+      console.log(res.docs);
+      let categoriesArray = res.docs.map((category) => {
+        return { ...category.data(), id: category.id };
+      });
+      setCategoryItems(categoriesArray);
     });
-    tarea
-      .then((respuesta) => setcategoryItems(respuesta))
-      .catch((error) => console.log(error));
   }, []);
+
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);

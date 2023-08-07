@@ -1,33 +1,65 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Checkout from "./Checkout";
-import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../../context/CartContext";
+import { db } from "../../../firebaseConfig";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+// import { useNavigate } from "react-router-dom";
 
 export default function CheckoutContainer() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  const { cart, getTotalPrice } = useContext(CartContext);
+
+  const [orderId, setOrderId] = useState("");
 
   const [userData, setUserData] = useState({
     name: "",
-    lastName: "",
+    phone: "",
+    email: "",
   });
 
-  console.log(userData);
+  let total = getTotalPrice();
 
-  const funcionDelFormulario = (evento) => {
+  const handleSubmit = (evento) => {
     evento.preventDefault();
 
-    console.log(userData);
+    let order = {
+      buyer: userData,
+      items: cart,
+      total,
+      date: serverTimestamp(),
+    };
 
-    navigate("/");
+    // CREAR UNA ORDEN DE COMPRA
+
+    let ordersCollections = collection(db, "orders");
+    addDoc(ordersCollections, order).then((res) => setOrderId(res.id));
+
+    // MODIFICAR STOCK DE PRODUCTOS
+    cart.forEach((elemento) => {
+      updateDoc(doc(db, "products", elemento.id), {
+        stock: elemento.stock - elemento.quantity,
+      });
+    });
+
+    // navigate("/");
   };
 
-  const funcionDelInput = (evento) => {
+  const handleChange = (evento) => {
     setUserData({ ...userData, [evento.target.name]: evento.target.value });
   };
 
   return (
     <Checkout
-      funcionDelFormulario={funcionDelFormulario}
-      funcionDelInput={funcionDelInput}
+      handleSubmit={handleSubmit}
+      handleChange={handleChange}
+      orderId={orderId}
     />
   );
 }

@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../../../context/CartContext";
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export default function CartContainer() {
   const { cart, clearCart, deleteById, getTotalPrice } =
@@ -23,10 +25,18 @@ export default function CartContainer() {
           </div>
         );
       })}
-      <button onClick={clearCart}>Limpiar carrito</button>
-
       <h2 style={{ color: "red" }}>TOTAL: ${total}</h2>
-      <button>Continuar a pagar</button>
+
+      {cart.length > 0 && (
+        <>
+          <Button variant="outlined" onClick={clearCart}>
+            Limpiar Carrito
+          </Button>
+          <Link to="/checkout">
+            <Button variant="outlined">terminar compra</Button>
+          </Link>
+        </>
+      )}
     </div>
   );
 }
